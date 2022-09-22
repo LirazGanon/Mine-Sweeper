@@ -1,38 +1,145 @@
+html {
+    margin: 0;
+}
 
-body{
-    text-align: center;;
+body {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    background-image: url(../img/back-light.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.top-container {
+    padding: 20px 0;
+    font-size: 3rem;
+    background-color: #d3662f;
+}
+
+h1{
+    font-family: 'Odibee Sans', cursive;
+    color: rgb(255, 255, 255);
+    letter-spacing: 5px; 
+    margin: 20px;
+}
+
+.levels {
+    padding: 25px;
+}
+
+.info-container {
+    padding: 15px;
+    background-color: #ffd4b1;
+}
+
+.info h2 {
+    display: inline-block;
+    width: 170px;
+    margin: 0 3px;
+}
+
+h2.smiley {
+    width: 50px;
+    cursor: pointer;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+
+.grid-item{
+    padding: 30px 0px;
+}
+
+.left-container{
+    text-align: right;
+}
+
+.right-container{
+    text-align: left;
 }
 
 .table-game {
+    padding: 10px;
+    background-color: #fff;
     margin: auto;
 }
 
-tbody{
+tbody {
     border-collapse: collapse;
 }
 
-td{
+.cell {
+    background-color:#d3662f;
+    box-shadow: inset 0.2em 0.2em 0.2em 0 rgba(255,255,255,0.5), inset -0.2em -0.2em 0.2em 0 rgba(0,0,0,0.5);
     width: 30px;
     height: 30px;
     border: 1px solid #ddd;
     padding: 5px;
 }
-
-.end-modal button{
-    position: relative;
-    bottom: 250px;
-    padding: 10px 15px;
-    font-size: 2rem;
+.cell:hover{
+    background-color:#9f4d25; 
 }
 
-.hide{
+.is-shown{
+    background-color:#ffc4a7;
+    box-shadow: none;
+}
+.is-shown:hover{
+   background-color:#ffc4a7;
+}
+ 
+
+.lives {
+    margin-top: 0;
+}
+
+.footer {
+    margin: 20px 0 0 0;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    width: 100vw;
+    color: #fff;
+    background-color: #d3662f;
+    bottom: 0px;
+}
+
+
+.bottom-info {
+    margin-bottom: 80px;
+}
+
+.bottom-info h2{
+margin: 5px;
+}
+
+.hide {
     display: none;
 }
 
+button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+
 .disable-select {
-    user-select: none; /* supported by Chrome and Opera */
-   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-   -moz-user-select: none; /* Firefox */
-   -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* supported by Chrome and Opera */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
 }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png">
@@ -12,26 +13,68 @@
     <link rel="manifest" href="fav/site.webmanifest">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Open+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <title>Mine Sweeper</title>
 </head>
 
 <body onload="initGame()">
-    <h1>Mine Sweeper</h1>
-    <h2 class="timer" >0</h2>
 
-    <div class="game-container disable-select">
-        <table class="table-game">
-            <tbody></tbody>
-        </table>
+    <div class="top-container">
+        <h1>Mine Sweeper</h1>
     </div>
 
-<div class="end-modal hide">
-    <button onclick="resetGame()">Play Again</button>
-</div>
+    <div class="levels">
+        <button onclick="setLevel(1)">Beginner</button>
+        <button onclick="setLevel(2)">Medium</button>
+        <button onclick="setLevel(3)">Expert</button>
+    </div>
+
+    <div class="info-container">
+        <div class="info">
+            <h2 class="timer">Time: <span>000</span></h2>
+            <h2 class="smiley" onclick="resetGame()"></h2>
+            <h2 class="mines">Mines Left: <span>0</span></h2>
+        </div>
+    </div>
+    
+    <div class="grid-container">
+
+        <div class="left-container grid-item">
+            <button class="hint" onclick="setHint()">HINT</button>
+        </div>
+
+        <div class="game-container disable-select grid-item">
+            <table class="table-game">
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- <div class="right-container grid-item">
+            <button class="hint" onclick="setHint()">HINT</button>
+        </div> -->
+    </div>
+
+
+    <div class="bottom-info">
+        <h2 class="lives">Lives: <span></span></h2>
+        <h2 class="score">Best Score: <span></span> seconds</h2>
+    </div>
+
+
+    <div class="footer">
+        falafelRights 🧆 Liraz Ganon
+    </div>
+
+
 
     <script src="js/util.js"></script>
     <script src="js/game.js"></script>
 </body>
 
 </html>
- 

@@ -19,19 +19,25 @@ function createMat(boardSize) {
 
 /// Changing cell value according to given percentage
 function buildBoard(mat, key, amountPercentage) {
-    
-     for (var i = 0; i < mat.length; i++) {
+    var contentCount = 0
+    for (var i = 0; i < mat.length; i++) {
         var currRow = mat[i]
         for (var j = 0; j < mat[0].length; j++) {
             var random = Math.random()
-            if (random < amountPercentage) currRow[j][key] = true
+            if (random < amountPercentage) {
+                contentCount++
+                currRow[j][key] = true
+            }else {
+                currRow[j][key] = false
+            }
         }
     }
-    return mat
+    return [mat, contentCount]
 }
 
-//Amount of neighbours with <boolian key> set to true?
-function countContentNegs(board, rowIdx, colIdx, boolianKey) {
+
+//Amount of neighbours with <boolean key> set to true?
+function countContentNegs(board, rowIdx, colIdx, booleanKey) {
 
     var contentCount = 0
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
@@ -42,7 +48,7 @@ function countContentNegs(board, rowIdx, colIdx, boolianKey) {
             if (i === rowIdx && j === colIdx) continue
 
             var currCell = board[i][j]
-            if (currCell[boolianKey]) contentCount++
+            if (currCell[booleanKey]) contentCount++
         }
     }
     return contentCount
@@ -51,5 +57,5 @@ function countContentNegs(board, rowIdx, colIdx, boolianKey) {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); 
+    return Math.floor(Math.random() * (max - min) + min);
 }
