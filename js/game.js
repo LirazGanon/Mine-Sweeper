@@ -2,7 +2,7 @@
 window.oncontextmenu = e => e.preventDefault() // cancel default menu
 
 const FLAG = '🚩'
-const MINE = '💣'
+const MINE = `<img src="img/mines.png" class="tdImg">`
 const COVER = ''
 const EMPTY = ''
 
@@ -26,7 +26,7 @@ var gGame = {
 
 var gLevel = {
     size: 8,
-    mines: 0.15,
+    mines: 0.2,
     totalCell: 0
 };
 
@@ -47,19 +47,29 @@ function initGame() {
 }
 
 function setLevel(level) {
+    var levelClass
 
     switch (level) {
         case 1:
             gLevel.size = 4
+            levelClass = '.l1'
             break;
         case 2:
             gLevel.size = 8
+            levelClass = '.l2'
             break;
         case 3:
             gLevel.size = 12
+            levelClass = '.l3'
             break;
         default: console.log(`Can't find level ${level}`);
     }
+    var levelElements = document.querySelectorAll('.levels button')
+    levelElements.forEach(element => {
+        element.style.backgroundColor = null
+    });
+    document.querySelector(levelClass).style.backgroundColor = '#e07a36'
+
     resetGame();
     initGame()
 }
@@ -73,12 +83,14 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             const currCell = currRow[j]
             var cellContent = setCellContent(currCell)
-            
-            if (currCell.isShown) var classAdd = 'is-shown'
-            else var classAdd = ''
 
-            if (!cellContent)cellContent = EMPTY
-                
+            var classAdd = ''
+            if (currCell.isShown) {
+                classAdd = ((i + j) % 2 === 0) ? 'is-shown' : 'is-gray'
+            }
+
+            if (!cellContent) cellContent = EMPTY
+
             strHTML += `<td id="${i}-${j}" class="cell ${classAdd}" 
             onclick="cellClicked(this, ${i}, ${j})" 
             oncontextmenu="cellMarked(this, ${i}, ${j})">${cellContent}
@@ -239,11 +251,16 @@ function setHint() {
     const elHint = document.querySelector('.hint')
     if (gGame.hintsCount <= 0 || gGame.shownCount === 0) {
         elHint.style.backgroundColor = 'red'
-        setTimeout(() => elHint.style.backgroundColor = null, 400)
+        elHint.style.cursor = 'not-allowed'
+        setTimeout(function () {
+            elHint.style.backgroundColor = null
+            elHint.style.cursor = null
+        },400)
+
         return
     }
     gGame.isHint = !gGame.isHint
-    if (gGame.isHint) elHint.style.backgroundColor = 'yellow'
+    if (gGame.isHint) elHint.style.backgroundColor = '#cfcb4e'
 }
 
 function useHint(board, rowIdx, colIdx) {
@@ -278,7 +295,6 @@ function unShowCells(board, rowIdx, colIdx) {
 function gameOver() {
     gGame.isOn = false
     clearInterval(counterInterval)
-    // document.querySelector('.end-modal').classList.remove('hide')
 
     if (gGame.isWin) {
         elSmiley.innerText = '😎'
@@ -294,7 +310,6 @@ function gameOver() {
 }
 
 function resetGame() {
-    // document.querySelector('.end-modal').classList.add('hide')
 
     if (counterInterval) clearInterval(counterInterval)
 
