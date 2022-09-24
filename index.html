@@ -47,9 +47,13 @@
     <div class="grid-container">
 
         <div class="left-container grid-item">
-            <button class="hint" onclick="setHint()">HINT</button>
+            <button class="hint" onclick="setHint()">HINT<br><h3 class="hint-left">left: <span>3</span></h3></button>
+            <br>
+            <br>
+            <button class="safe" onclick="setSafe()">Safe Click<br><h3 class="safe-left">left: <span>3</span></h3></button>
         </div>
-
+    
+ 
         <div class="game-container disable-select grid-item">
             <table class="table-game">
                 <tbody></tbody>
@@ -57,7 +61,11 @@
         </div>
 
         <div class="right-container grid-item">
-            <button class="hint" onclick="setHint()">HINT</button>
+            <h3 class="dark-switch">light mode</h3>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider" onclick="setDarkMod()" ></span>
+              </label>
         </div>
     </div>
 

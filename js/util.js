@@ -35,6 +35,19 @@ function buildBoard(mat, key, amountPercentage) {
     return [mat, contentCount]
 }
 
+function findCells(mat, content) {
+    var contents =[]
+    for (var i = 0; i < mat.length; i++) {
+        var currRow = mat[i]
+        for (var j = 0; j < mat[0].length; j++) {
+            if ( currRow[j] !== content)
+            contents.push({i:i,j:j})
+        }
+    }
+
+    return contents
+}
+
 
 //Amount of neighbours with <boolean key> set to true?
 function countContentNegs(board, rowIdx, colIdx, booleanKey) {

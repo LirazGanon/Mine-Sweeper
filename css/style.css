@@ -10,12 +10,21 @@ body {
     background-image: url(../img/back-light.png);
     background-repeat: no-repeat;
     background-size: cover;
+
+}
+
+.body-dark {
+    background-image: url(../img/back-dark.png);
 }
 
 .top-container {
     padding: 10px 0;
     font-size: 3rem;
     background-color: #d3662f;
+}
+
+.top-container-dark {
+    background-color: transparent;
 }
 
 h1 {
@@ -27,7 +36,11 @@ h1 {
     display: inline-block;
 }
 
-.top-container img{
+.h1-dark {
+    color: rgb(209, 200, 196);
+}
+
+.top-container img {
     position: relative;
     top: 30px;
     display: inline-block;
@@ -37,19 +50,27 @@ h1 {
     padding: 25px;
 }
 
-.info-container, .bottom-info {
-    padding: 15px;
+.info-container,
+.bottom-info {
+    padding: 7px;
     background-color: #ffd4b1;
 }
 
-.game-container {
-    background-color: rgba(255, 249, 241, 0.899);
-    border-radius: 15px;
+.info-container-dark {
+    color: rgb(209, 200, 196);
+    background-color: transparent;
 }
 
-.bottom-info {
-    padding: 20px;
+.game-container {
+    border-left: #ffd4b1 15px solid;
+    border-right: #ffd4b1 15px solid;
 }
+
+.game-container-dark {
+    border-left: transparent 15px solid;
+    border-right: transparent 15px solid;
+}
+
 
 .info h2 {
     display: inline-block;
@@ -59,17 +80,19 @@ h1 {
 
 h2.smiley {
     width: 50px;
+    font-size: 2rem;
     cursor: pointer;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto 620px auto;
+    grid-template-columns: auto 440px auto;
 }
 
 
 .grid-item {
-    padding: 30px 0px;
+    padding: 30px 30px;
+
 }
 
 .left-container {
@@ -81,9 +104,13 @@ h2.smiley {
 }
 
 .table-game {
-    padding: 7px;
+    background-color: #fff;
+    /* padding: 7px; */
     margin: auto;
+}
 
+.table-game-dark {
+    background-color: #000;
 }
 
 tbody {
@@ -97,6 +124,7 @@ tbody {
     height: 30px;
     border: 1px solid #ddd;
     padding: 5px;
+    font-weight: 700;
 
 }
 
@@ -107,24 +135,35 @@ tbody {
 .is-shown {
     background-color: #ffdccb;
     box-shadow: none;
-
-
 }
 
 .is-shown:hover {
     background-color: #ffdccb;
 }
 
-.is-gray{
-    transition: 2s;
+.is-gray {
     background-color: #ffd0b7;
     box-shadow: none;
 }
 
 .is-gray:hover {
-    background-color: #ffd0b7;  
+    background-color: #ffd0b7;
 }
 
+.is-red {
+    background-color: #ff2f2f;
+    box-shadow: none;
+}
+
+.is-red:hover {
+    background-color: #ff2f2f;
+}
+
+h3 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 0.8rem;
+}
 
 .lives {
     margin-top: 0;
@@ -132,7 +171,7 @@ tbody {
 
 .footer {
     margin: 20px 0 0 0;
-    padding: 20px 0;
+    padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -143,9 +182,14 @@ tbody {
     letter-spacing: 1px;
 }
 
+.footer-dark {
+    background-color: #000;
+}
+
 
 .bottom-info {
-    margin-bottom: 40px;
+    padding: 10px;
+    margin-bottom: 42px;
 }
 
 .bottom-info h2 {
@@ -161,7 +205,7 @@ tbody {
     max-height: 80%;
 }
 
-img{
+img {
     width: 120px;
 }
 
@@ -183,6 +227,106 @@ button:hover {
     background-color: rgb(87, 27, 13);
 }
 
+.text-green {
+    color: green;
+}
+
+.text-blue {
+    color: rgb(45, 45, 213);
+}
+
+.text-yellow {
+    color: rgb(177, 158, 46);
+}
+
+.text-orange {
+    color: rgb(210, 98, 0);
+}
+
+.text-red {
+    color: rgb(141, 19, 19);
+}
+.dark-switch {
+    text-align: center;
+    font-size: 13px;
+    color: #000;
+    width: 69px;
+    background-color: rgb(253, 213, 180);
+    margin-bottom: 1px;
+    border-radius: 3px;
+}
+
+.light-switch {
+    background-color: transparent;
+    color: rgb(209, 200, 196);
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 62px;
+    height: 25px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c1a9a6;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 9px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #9a2e22;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #9a2e22;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
 
 .disable-select {
     user-select: none;
@@ -196,4 +340,3 @@ button:hover {
     -ms-user-select: none;
     /* Internet Explorer/Edge */
 }
-
