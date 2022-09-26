@@ -27,7 +27,7 @@ function buildBoard(mat, key, amountPercentage) {
             if (random < amountPercentage) {
                 contentCount++
                 currRow[j][key] = true
-            }else {
+            } else {
                 currRow[j][key] = false
             }
         }
@@ -35,17 +35,38 @@ function buildBoard(mat, key, amountPercentage) {
     return [mat, contentCount]
 }
 
-function findCells(mat, content) {
-    var contents =[]
+function findSafeCells(mat) {
+    var contents = []
     for (var i = 0; i < mat.length; i++) {
         var currRow = mat[i]
         for (var j = 0; j < mat[0].length; j++) {
-            if ( currRow[j] !== content)
-            contents.push({i:i,j:j})
+            var currCell = currRow[j]
+            if (!currCell.isMine && !currCell.isShown && !currCell.isMarked)
+                contents.push({ i: i, j: j })
         }
     }
-
     return contents
+}
+
+function getNumBoom(mat, num) {
+    var cellCounter = 1
+    var mineCount = 0
+
+    for (var i = 0; i < mat.length; i++) {
+        var currRow = mat[i]
+        for (var j = 0; j < mat[0].length; j++) {
+            var currCell = currRow[j]
+            var cellCounterStr = cellCounter + ''
+            console.log(cellCounter);
+            if (cellCounter % num === 0 || cellCounterStr.includes((num + ''))) {
+                currCell.isMine = true
+                mineCount++
+            }
+            cellCounter++
+        }
+    }
+    console.log(mat);
+    return [mat, mineCount]
 }
 
 
