@@ -21,6 +21,9 @@ body {
     padding: 10px 0;
     font-size: 3rem;
     background-color: #d3662f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .top-container-dark {
@@ -33,7 +36,6 @@ h1 {
     letter-spacing: 5px;
     margin: 20px;
     text-shadow: #474747 3px 5px 2px;
-    display: inline-block;
 }
 
 .h1-dark {
@@ -41,9 +43,8 @@ h1 {
 }
 
 .top-container img {
-    position: relative;
-    top: 30px;
-    display: inline-block;
+    width: 130px;
+    height: 130px;
 }
 
 .levels {
@@ -72,22 +73,23 @@ h1 {
     border-right: transparent 15px solid;
 }
 
-.info{
-margin: auto;
-text-align: center;
+.info {
+    margin: auto;
+    text-align: center;
 }
 
-h2{
+h2 {
     background-color: rgb(255, 250, 239);
     border-radius: 10px;
     padding: 3px 10px;
     border: #000 solid 1px;
-    
+
 }
 
-.h2-dark{
+.h2-dark {
     background-color: rgb(30, 30, 30);
 }
+
 .info h2 {
     display: inline-block;
     width: 170px;
@@ -102,7 +104,7 @@ h2.smiley {
     border: none;
 }
 
-.smiley img{
+.smiley img {
     width: 50px;
     vertical-align: middle;
 }
@@ -157,7 +159,7 @@ tbody {
     z-index: +1;
 }
 
-.grid-item button{
+.grid-item button {
     line-height: 1.1rem;
 }
 
@@ -303,7 +305,7 @@ button:hover {
     cursor: url(../fav/favicon-32x32.png), auto;
 }
 
-.mine-background{
+.mine-background {
     background-image: url(../fav/favicon-32x32.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -313,10 +315,11 @@ button:hover {
     background-color: rgb(254, 241, 236)
 }
 
-.score span{
+.score span {
     color: #ca491a;
 }
-.smaller{
+
+.smaller {
     font-size: 1rem;
 }
 
@@ -410,10 +413,10 @@ input:checked+.slider:before {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-  
-  /* The actual popup */
-  .popup .popuptext {
+}
+
+/* The actual popup */
+.popup .popuptext {
     font-size: 0.8rem;
     visibility: hidden;
     width: 220px;
@@ -427,23 +430,124 @@ input:checked+.slider:before {
     bottom: -40px;
     left: 50%;
     margin-left: -80px;
-  }
-  
-  
-  /* Toggle this class - hide and show the popup */
-  .popup .show {
+}
+
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
-  }
-  
-  /* Add animation (fade in the popup) */
-  @-webkit-keyframes fadeIn {
-    from {opacity: 0;} 
-    to {opacity: 1;}
-  }
-  
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-  }
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .top-container {
+        padding: 5;
+    }
+
+    h1 {
+        font-size: 4rem;
+        margin: 10px;
+    }
+
+    .top-container img {
+        transform: scale(0.7);
+    }
+}
+
+@media only screen and (max-height:935px) {
+    .top-container {
+        padding: 5;
+    }
+
+    h1 {
+        font-size: 4rem;
+        margin: 10px;
+    }
+
+    .top-container img {
+        transform: scale(0.7);
+    }
+
+    .bottom-info h2 {
+        display: inline-block
+    }
+}
+
+
+@media only screen and (max-width:600px) {
+    .top-container{
+        padding: 0;
+        align-items: center;
+        justify-content: flex-end
+    }
+
+    h1 {
+        font-size: 2.8rem;
+        margin:0 0 0 10px;
+    }
+
+    .info h2{
+        width: 75px;
+        font-size: 1rem;
+    }
+
+    .top-container img {
+        transform: scale(0.6);
+    }
+
+    .grid-container {
+        display: inline-block;
+    }
+
+    .left-container, .right-container {
+        display:flex;
+        overflow:hidden;
+        padding: 10px;
+    }
+
+    .grid-item button {
+        font-size: 0.9rem;
+    }
+
+    .dark-switch {
+        display: none;
+    }
+
+    .game-container {
+        padding: 0;
+        margin: 0;
+        border: none;
+        display: grid;
+        table-layout: auto;
+    }
+
+    .footer {
+        position: relative;
+    }
+
+    .l3{
+        display: none;
+    }
+}

@@ -16,13 +16,14 @@ var gMegaHintsIdxes = []
 var gBlownMinesIdxes = []
 
 var gGame
-setgGame()
 
 var gLevel = {
     size: 8,
     mines: 0.25,
     totalCell: 0
 };
+
+setgGame()
 
 var counterInterval = null
 
@@ -37,13 +38,13 @@ function initGame() {
     const RECORD = (+localStorage.getItem('user_record'))
     document.querySelector('.score span').innerText = (RECORD === Infinity) ? '--' : RECORD
     gGame.isOn = true
-    
+
 }
 
 function setLevel(level) {
     var levelClass
     var width
-    
+
     resetGame()
 
     switch (level) {
@@ -440,7 +441,7 @@ function addOnHoverEvent() {
             var targetIdxes = { i: +currIdxes[0], j: +currIdxes[1] }
             shadeCells(gMegaHintsIdxes[0], targetIdxes)
         })
-    })
+    }) 
 
 }
 function shadeCells(startCell, endCell) {
@@ -519,7 +520,7 @@ function minesExterminator(amount) {
         blockButtonUse(elTerminator, 'pop5')
         return
     }
-    
+
     gGame.terminateCount -= 1
 
     for (let i = 0; i < amount; i++) {
@@ -565,7 +566,7 @@ function undo() {
     const currIdxes = gGameSteps.splice(-1)[0]
     currIdxes.forEach(idx => {
         const currCell = gBoard[idx.i][idx.j]
-        if (gBlownMinesIdxes.findIndex((obj) => obj.i === idx.i && obj.j === idx.j) !== -1){
+        if (gBlownMinesIdxes.findIndex((obj) => obj.i === idx.i && obj.j === idx.j) !== -1) {
             currCell.isMine = true
         }
         currCell.isShown = false
@@ -740,7 +741,7 @@ function setgGame() {
         secsPassed: 0,
         minesHits: 0,
         minesLeft: 0,
-        livesCount: 2,
+        livesCount: parseInt(gLevel.size / 4),
         hintsCount: 3,
         safeCount: 3,
         megaHintsCount: 1,
@@ -748,3 +749,4 @@ function setgGame() {
         steps: 0,
     }
 }
+
