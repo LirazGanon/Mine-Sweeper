@@ -39,7 +39,7 @@
     <div class="info-container">
         <div class="info">
             <h2 class="timer">Time: <span>000</span></h2>
-            <h2 class="smiley" onclick="resetGame()"></h2>
+            <h2 class="smiley" onclick="resetGame()"><img src="img/smile.png"></h2>
             <h2 class="mines">Mines Left: <span>0</span></h2>
         </div>
     </div>
@@ -47,16 +47,20 @@
     <div class="grid-container">
 
         <div class="left-container grid-item">
-            <button class="hint" onclick="setHint()">HINT<br><h3 class="hint-left">left: <span>3</span></h3></button>
+            <button class="hint" onclick="setHint()">HINT<br><h3 class="hint-left popup">left: <span>3</span>
+                <span class="popuptext" id="pop1">Can't use Hint right now</span></h3></button>
             <br>
             <br>
-            <button class="safe" onclick="setSafe()">Safe Click<br><h3 class="safe-left">left: <span>3</span></h3></button>
+            <button class="safe" onclick="setSafe()">Safe Click<br><h3 class="safe-left popup">left: <span>3</span>
+                <span class="popuptext" id="pop2">Can't use Safe-Click right now</span></h3></button>
             <br>
             <br>
-            <button class="mega-hint" onclick="setMegaHint()">MEGA HINT<br><h3 class="mega-hint-left">left: <span>1</span></h3></button>
+            <button class="mega-hint" onclick="setMegaHint()">MEGA HINT<br><h3 class="mega-hint-left popup">left: <span>1</span>
+                <span class="popuptext" id="pop3">Can't use Mega-Hint right now</span></h3></button>
             <br>
             <br>
-            <button class="undo" onclick="undo()">UNDO</button>
+            <button class="undo popup" onclick="undo()">UNDO
+                <span class="popuptext" id="pop4">Can't use UNDO right now</span></button>
         </div>
         
  
@@ -85,7 +89,7 @@
 
     <div class="bottom-info">
         <h2 class="lives">Lives: <span></span></h2>
-        <h2 class="score">Best Score: <span></span> seconds</h2>
+        <h2 class="score">Best Score: <span></span> <span class="smaller"> Sec.</span></h2>
     </div>
 
 

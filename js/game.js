@@ -29,12 +29,12 @@ function initGame() {
     gBoard = createMat(gLevel.size)
 
     gLevel.totalCell = gLevel.size * gLevel.size
-    elSmiley.innerText = '🙂'
+    elSmiley.innerHTML = `<img src="img/smile.png">`
 
     renderBoard(gBoard)
-    const RECORD = (+localStorage.getItem('user_record')) ? localStorage.getItem('user_record') :
-        localStorage.setItem('user_record', Infinity)
-    document.querySelector('.score span').innerText = RECORD
+    if(!localStorage.getItem('user_record')) localStorage.setItem('user_record', Infinity)
+    const RECORD = (+localStorage.getItem('user_record'))
+    document.querySelector('.score span').innerText = (RECORD === Infinity) ? '--' : RECORD
     gGame.isOn = true
 
 }
@@ -308,25 +308,22 @@ function checkVictory() {
 function setHint() {
     const elHint = document.querySelector('.hint')
 
+    if (gGame.hintsCount <= 0 || !gGame.isOn || gGame.isMegaHint || gGame.isSafe) {
+        blockButtonUse(elHint, 'pop1')
+        return
+    }
     if (!gGame.isManualMode && !gGame.isSevenBoom) {
-
-        if (gGame.hintsCount <= 0 || gGame.shownCount === 0) {
-            elHint.style.backgroundColor = 'red'
-            elHint.style.cursor = 'not-allowed'
-            setTimeout(function () {
-                elHint.style.backgroundColor = null
-                elHint.style.cursor = null
-            }, 400)
-
+        if (gGame.shownCount === 0) {
+            blockButtonUse(elHint, 'pop1')
             return
         }
-
     }
 
     gGame.isHint = !gGame.isHint
     if (gGame.isHint) elHint.style.backgroundColor = '#cfcb4e'
     else elHint.style.backgroundColor = null
 }
+
 
 function useHint(board, rowIdx, colIdx) {
 
@@ -361,28 +358,26 @@ function unShowCells(rowIdx, colIdx) {
 function setMegaHint() {
     const elHint = document.querySelector('.mega-hint')
 
+    if (gGame.megaHintsCount <= 0 || !gGame.isOn || gGame.isHint || gGame.isSafe) {
+        blockButtonUse(elHint, 'pop3')
+        return
+    }
     if (!gGame.isManualMode && !gGame.isSevenBoom) {
-
-        if (gGame.megaHintsCount <= 0 || gGame.shownCount === 0) {
-            elHint.style.backgroundColor = 'red'
-            elHint.style.cursor = 'not-allowed'
-            setTimeout(function () {
-                elHint.style.backgroundColor = null
-                elHint.style.cursor = null
-            }, 400)
-
+        if (gGame.shownCount === 0) {
+            blockButtonUse(elHint, 'pop3')
             return
         }
     }
 
     gGame.isMegaHint = !gGame.isMegaHint
     if (gGame.isMegaHint) elHint.style.backgroundColor = '#cfcb4e'
-    else{
+    else {
         elHint.style.backgroundColor = null
         const elCell = document.querySelectorAll('.cell')
         elCell.forEach(cell => cell.style.backgroundColor = null)
     }
 }
+
 
 function useMegaHint(board, startCell, endCell) {
 
@@ -419,6 +414,17 @@ function unMegaShowCells(rowIdx, colIdx) {
     }, 1000)
 }
 
+function blockButtonUse(element, msgClass) {
+    popUp(msgClass)
+    element.style.backgroundColor = 'red'
+    element.style.cursor = 'not-allowed'
+    setTimeout(function () {
+        element.style.backgroundColor = null
+        element.style.cursor = null
+    }, 400)
+
+}
+
 function addOnHoverEvent() {
     const elCell = document.querySelectorAll('.cell')
     elCell.forEach(cell => {
@@ -435,10 +441,10 @@ function shadeCells(startCell, endCell) {
     const elCell = document.querySelectorAll('.cell')
     elCell.forEach(cell => cell.style.backgroundColor = null)
 
-    if (!gGame.isMegaHint || !startCell){
+    if (!gGame.isMegaHint || !startCell) {
         gMegaHintsIdxes = []
         return
-    } 
+    }
 
     if (startCell.i > endCell.i || startCell.j > endCell.j) return
     for (var i = startCell.i; i <= endCell.i; i++) {
@@ -451,15 +457,13 @@ function shadeCells(startCell, endCell) {
 function setSafe() {
     const elSafe = document.querySelector('.safe')
 
+    if (gGame.hintsCount <= 0 || !gGame.isOn || gGame.isHint || gGame.isMegaHint) {
+        blockButtonUse(elSafe, 'pop2')
+        return
+    }
     if (!gGame.isManualMode && !gGame.isSevenBoom) {
-        if (gGame.safeCount <= 0 || gGame.shownCount === 0) {
-            elSafe.style.backgroundColor = 'red'
-            elSafe.style.cursor = 'not-allowed'
-            setTimeout(function () {
-                elSafe.style.backgroundColor = null
-                elSafe.style.cursor = null
-            }, 400)
-
+        if (gGame.shownCount === 0) {
+            blockButtonUse(elSafe, 'pop2')
             return
         }
     }
@@ -505,16 +509,10 @@ function undo() {
 
     const elundo = document.querySelector('.undo')
 
-    if (gGameSteps.length === 0 || !gGame.isOn) {
-
-        elundo.style.backgroundColor = 'red'
-        elundo.style.cursor = 'not-allowed'
-        setTimeout(function () {
-            elundo.style.backgroundColor = null
-            elundo.style.cursor = null
-        }, 400)
-
+    if (gGameSteps.length === 0 || !gGame.isOn || gGame.isMegaHint || gGame.isHint || gGame.isSafe) {
+        blockButtonUse(elundo, 'pop4')
         return
+
     }
 
     const currIdxes = gGameSteps.splice(-1)[0]
@@ -596,6 +594,11 @@ function sevenBoom() {
     document.querySelector('.seven-boom').style.backgroundColor = '#cfcb4e'
 }
 
+function popUp(id) {
+    var popup = document.getElementById(id)
+    popup.classList.toggle("show")
+    setTimeout(() => popup.classList.toggle("show"), 2000)
+}
 
 function setDarkMod() {
     document.querySelector('body').classList.toggle('body-dark')
@@ -606,6 +609,8 @@ function setDarkMod() {
     document.querySelector('.table-game').classList.toggle('table-game-dark')
     document.querySelector('.bottom-info').classList.toggle('info-container-dark')
     document.querySelector('.footer').classList.toggle('footer-dark')
+    const elH2 = document.querySelectorAll('h2')
+    elH2.forEach(el => el.classList.toggle('h2-dark'))
     const elDarkText = document.querySelector('.dark-switch')
     elDarkText.classList.toggle('light-switch')
     if (elDarkText.innerText === 'dark mode') {
@@ -618,7 +623,7 @@ function gameOver() {
     clearInterval(counterInterval)
 
     if (gGame.isWin) {
-        elSmiley.innerText = '😎'
+        elSmiley.innerHTML = `<img src="img/win.gif">` //😎
         var record = +localStorage.getItem('user_record');
         if (gGame.secsPassed < record) {
             document.querySelector('.score span').innerText = gGame.secsPassed
@@ -626,7 +631,7 @@ function gameOver() {
         }
 
     } else {
-        elSmiley.innerText = '🤯'
+        elSmiley.innerHTML = `<img src="img/lose.gif">` // 🤯
         buildBoard(gBoard, 'isShown', 1)
     }
 

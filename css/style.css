@@ -52,6 +52,7 @@ h1 {
 
 .info-container,
 .bottom-info {
+    margin: auto;
     padding: 7px;
     background-color: #ffd4b1;
 }
@@ -71,17 +72,39 @@ h1 {
     border-right: transparent 15px solid;
 }
 
+.info{
+margin: auto;
+text-align: center;
+}
 
+h2{
+    background-color: rgb(255, 250, 239);
+    border-radius: 10px;
+    padding: 3px 10px;
+    border: #000 solid 1px;
+    
+}
+
+.h2-dark{
+    background-color: rgb(30, 30, 30);
+}
 .info h2 {
     display: inline-block;
     width: 170px;
     margin: 0 3px;
+    vertical-align: middle;
 }
 
 h2.smiley {
     width: 50px;
-    font-size: 2rem;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.smiley img{
+    width: 50px;
+    vertical-align: middle;
 }
 
 .grid-container {
@@ -192,7 +215,8 @@ h3 {
 }
 
 .bottom-info h2 {
-    margin: 5px;
+    margin: 5px auto;
+    width: 300px;
 }
 
 .hide {
@@ -276,6 +300,13 @@ button:hover {
     background-color: rgb(254, 241, 236)
 }
 
+.score span{
+    color: #ca491a;
+}
+.smaller{
+    font-size: 1rem;
+}
+
 
 .blink_me {
     animation: blinker 1s linear infinite;
@@ -356,3 +387,50 @@ input:checked+.slider:before {
     -ms-user-select: none;
     /* Internet Explorer/Edge */
 }
+
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* The actual popup */
+  .popup .popuptext {
+    font-size: 0.8rem;
+    visibility: hidden;
+    width: 220px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: -40px;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
