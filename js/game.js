@@ -674,7 +674,8 @@ function gameOver() {
     clearInterval(counterInterval)
 
     if (gGame.isWin) {
-        elSmiley.innerHTML = `<img src="img/win.gif">` //😎
+        elSmiley.innerHTML = `<img src="img/win.gif"><img class="fireworks" src="img/fireworks.png">` //😎
+        setTimeout(()=>document.querySelector('.fireworks').classList.add('hide'),3000)
         var record = +localStorage.getItem('user_record');
         if (gGame.secsPassed < record) {
             document.querySelector('.score span').innerText = gGame.secsPassed

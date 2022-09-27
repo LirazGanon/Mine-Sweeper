@@ -76,6 +76,8 @@ h1 {
 .info {
     margin: auto;
     text-align: center;
+    position: relative;
+    
 }
 
 h2 {
@@ -102,6 +104,15 @@ h2.smiley {
     cursor: pointer;
     background-color: transparent;
     border: none;
+    position: relative;
+}
+.fireworks {
+    position: absolute;
+    transform: scale(4);
+    top: 15px;
+    left: 10px;
+    z-index: 1;
+
 }
 
 .smiley img {
@@ -147,7 +158,6 @@ tbody {
     width: 40px;
     height: 40px;
     border: 1px solid #ddd;
-    /* padding: 5px; */
     font-weight: 700;
     position: relative;
 }
@@ -544,6 +554,7 @@ input:checked+.slider:before {
         table-layout: auto;
         margin: 5px 0;
         overflow: hidden;
+        justify-content: center;
     }
 
     .footer {
