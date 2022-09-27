@@ -509,12 +509,12 @@ function minesExterminator(amount) {
     const elTerminator = document.querySelector('.terminator')
     if (gGame.terminateCount <= 0 || !gGame.isOn || gGame.isHint || gGame.isMegaHint ||
         gGame.isSafe || gGame.shownCount === 0) {
-        blockButtonUse(elTerminator, 'pop4')
+        blockButtonUse(elTerminator, 'pop5')
         return
     }
     
     gGame.terminateCount -= 1
-    
+
     for (let i = 0; i < amount; i++) {
         mineTerminate()
         document.querySelector('.terminator-left span').innerText = gGame.terminateCount
@@ -559,6 +559,9 @@ function undo() {
     const currIdxes = gGameSteps.splice(-1)[0]
     currIdxes.forEach(idx => {
         const currCell = gBoard[idx.i][idx.j]
+        if (gBlownMinesIdxes.findIndex((obj) => obj.i === idx.i && obj.j === idx.j) !== -1){
+            currCell.isMine = true
+        }
         currCell.isShown = false
         if (currCell.isMine) {
             currCell.clickedOnMine = false
@@ -689,6 +692,7 @@ function resetGame() {
     gMinesOnManual = []
     gGameSteps = []
     gMegaHintsIdxes = []
+    gBlownMinesIdxes = []
 
     const elHint = document.querySelector('.hint')
     elHint.style.backgroundColor = null
@@ -705,6 +709,8 @@ function resetGame() {
     const elSafeLeft = document.querySelector('.safe-left span')
     elSafeLeft.innerText = gGame.safeCount
 
+    const elTerminator = document.querySelector('.terminator-left span')
+    elTerminator.innerText = gGame.terminateCount
 
     document.querySelector('.set-mines').innerText = 'Set Mines'
 
