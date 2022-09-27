@@ -20,7 +20,7 @@ setgGame()
 
 var gLevel = {
     size: 8,
-    mines: 0.13,
+    mines: 0.25,
     totalCell: 0
 };
 
@@ -37,28 +37,36 @@ function initGame() {
     const RECORD = (+localStorage.getItem('user_record'))
     document.querySelector('.score span').innerText = (RECORD === Infinity) ? '--' : RECORD
     gGame.isOn = true
-
+    
 }
 
 function setLevel(level) {
     var levelClass
     var width
+    
+    resetGame()
 
     switch (level) {
         case 1:
             gLevel.size = 4
             levelClass = '.l1'
             width = 300
+            gGame.livesCount = 1
+            gLevel.mines = 0.4
             break;
         case 2:
             gLevel.size = 8
             levelClass = '.l2'
             width = 460
+            gGame.livesCount = 2
+            gLevel.mines = 0.25
             break;
         case 3:
             gLevel.size = 12
             levelClass = '.l3'
-            width = 630
+            width = 650
+            gGame.livesCount = 3
+            gLevel.mines = 0.2
             break;
         default: console.log(`Can't find level ${level}`);
     }
@@ -71,7 +79,6 @@ function setLevel(level) {
 
     const elGridContainer = document.querySelector('.grid-container ')
     elGridContainer.style.gridTemplateColumns = `auto ${width}px auto`
-    resetGame()
     initGame()
 }
 
@@ -545,7 +552,6 @@ function mineTerminate() {
 
 }
 
-
 function undo() {
 
     const elundo = document.querySelector('.undo')
@@ -734,7 +740,7 @@ function setgGame() {
         secsPassed: 0,
         minesHits: 0,
         minesLeft: 0,
-        livesCount: 3,
+        livesCount: 2,
         hintsCount: 3,
         safeCount: 3,
         megaHintsCount: 1,
