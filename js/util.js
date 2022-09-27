@@ -48,6 +48,20 @@ function findSafeCells(mat) {
     return contents
 }
 
+function findMines(mat) {
+    var minesIdxes = []
+
+    for (var i = 0; i < mat.length; i++) {
+        var currRow = mat[i]
+        for (var j = 0; j < mat[0].length; j++) {
+            var currCell = currRow[j]
+            if (currCell.isMine && !currCell.isShown && !currCell.isMarked)
+            minesIdxes.push({ i: i, j: j })
+        }
+    }
+    return minesIdxes
+}
+
 function getNumBoom(mat, num) {
     var cellCounter = 1
     var mineCount = 0

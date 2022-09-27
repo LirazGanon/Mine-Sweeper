@@ -13,6 +13,7 @@ var gGameSteps = []
 
 var gMinesOnManual = []
 var gMegaHintsIdxes = []
+var gBlownMinesIdxes = []
 
 var gGame
 setgGame()
@@ -32,7 +33,7 @@ function initGame() {
     elSmiley.innerHTML = `<img src="img/smile.png">`
 
     renderBoard(gBoard)
-    if(!localStorage.getItem('user_record')) localStorage.setItem('user_record', Infinity)
+    if (!localStorage.getItem('user_record')) localStorage.setItem('user_record', Infinity)
     const RECORD = (+localStorage.getItem('user_record'))
     document.querySelector('.score span').innerText = (RECORD === Infinity) ? '--' : RECORD
     gGame.isOn = true
@@ -378,7 +379,6 @@ function setMegaHint() {
     }
 }
 
-
 function useMegaHint(board, startCell, endCell) {
 
     gGame.isMegaHint = false
@@ -502,6 +502,47 @@ function useSafe(board) {
 function flashCell(rowIdx, colIdx) {
     const cell = document.getElementById(`${rowIdx}-${colIdx}`)
     cell.classList.add('blink_me')
+}
+
+function minesExterminator(amount) {
+
+    const elTerminator = document.querySelector('.terminator')
+    if (gGame.terminateCount <= 0 || !gGame.isOn || gGame.isHint || gGame.isMegaHint ||
+        gGame.isSafe || gGame.shownCount === 0) {
+        blockButtonUse(elTerminator, 'pop4')
+        return
+    }
+    
+    gGame.terminateCount -= 1
+    
+    for (let i = 0; i < amount; i++) {
+        mineTerminate()
+        document.querySelector('.terminator-left span').innerText = gGame.terminateCount
+        checkVictory()
+        if (gGame.isWin) return
+    }
+
+}
+
+function mineTerminate() {
+
+    const minesIdxes = findMines(gBoard)
+
+    if (minesIdxes.length === 0) return
+    const currMineIdx = minesIdxes.splice(getRandomInt(0, minesIdxes.length), 1)[0]
+    gBlownMinesIdxes.push(currMineIdx)
+    const currCell = gBoard[currMineIdx.i][currMineIdx.j]
+    currCell.isMine = false
+    gGame.minesLeft -= 1
+    gGameSteps.push([])
+    setMinesNegsCount(gBoard)
+    expandCell(currMineIdx.i, currMineIdx.j)
+    gGame.steps += 1
+    document.getElementById(`${currMineIdx.i}-${currMineIdx.j}`).innerHTML = `<img class="boom" src="img/boom.gif">`
+    setTimeout(() => {
+        renderBoard(gBoard)
+    }, 1000);
+
 }
 
 
@@ -691,6 +732,7 @@ function setgGame() {
         hintsCount: 3,
         safeCount: 3,
         megaHintsCount: 1,
+        terminateCount: 1,
         steps: 0,
     }
 }
