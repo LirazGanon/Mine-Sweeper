@@ -245,14 +245,15 @@ function expandCell(rowIdx, colIdx) {
     gGameSteps[gGame.steps].push({ i: rowIdx, j: colIdx })
 
     if (currCell.isMine) {
-
-        gGame.livesCount -= 1
+        
         if (gGame.livesCount > 0) {
+            gGame.livesCount -= 1
             gGame.minesLeft -= 1
             currCell.clickedOnMine = true
             return
         }
-
+        
+        gGame.livesCount -= 1
         currCell.clickedOnMine = true
         gameOver()
         return
