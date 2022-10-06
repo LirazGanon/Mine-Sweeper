@@ -1,19 +1,22 @@
 html,
 body {
+    width: 100vw;
+    padding: 0;
+    margin: 0;
     height: 100vh;
     margin: 0;
+    overflow-x: hidden;
 }
 
 body {
-    padding: 0;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     background-image: url(../img/back-light.png);
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     background-size: cover;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+
 }
 
 .body-dark {
@@ -568,20 +571,23 @@ input:checked+.slider:before {
     .top-container {
         padding: 0;
         align-items: center;
+        
     }
 
-    .tooltiptext {
-        z-index: 200;
+    .popuptext, .tooltiptext {
+       display: none !important;
     }
-button{
-    box-shadow: none;
-}
+
+    button {
+        box-shadow: 0px 0px 5px 1px #36392c;
+    }
+
     .bottom-info {
         scale: 0.9;
     }
 
     .game {
-        width: 380px !important;
+        width: 370px !important;
     }
 
     h1 {
@@ -592,6 +598,7 @@ button{
     .info h2 {
         width: 75px;
         font-size: 1rem;
+        
     }
 
     .top-container img {
