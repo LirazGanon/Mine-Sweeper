@@ -1,20 +1,41 @@
-html {
+html,
+body {
+    height: 100vh;
     margin: 0;
 }
 
 body {
     padding: 0;
-    margin: 0;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     background-image: url(../img/back-light.png);
     background-repeat: no-repeat;
     background-size: cover;
-
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 .body-dark {
     background-image: url(../img/back-dark.png);
+}
+
+.middle-container {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.game {
+    width: 650px;
+    background-color: #fdeeda;
+    margin: auto;
+    padding: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px 4px #181A10;
+}
+
+.game-dark {
+    background-color: hsla(0, 0%, 12%, 0.652);
 }
 
 .top-container {
@@ -48,14 +69,13 @@ h1 {
 }
 
 .levels {
-    padding: 25px;
+    padding: 25px 0;
 }
 
 .info-container,
 .bottom-info {
     margin: auto;
     padding: 7px;
-    background-color: #ffd4b1;
 }
 
 .info-container-dark {
@@ -63,9 +83,10 @@ h1 {
     background-color: transparent;
 }
 
+
 .game-container {
-    border-left: #ffd4b1 15px solid;
-    border-right: #ffd4b1 15px solid;
+    display: flex;
+    flex-direction: column;
 }
 
 .game-container-dark {
@@ -77,7 +98,7 @@ h1 {
     margin: auto;
     text-align: center;
     position: relative;
-    
+
 }
 
 h2 {
@@ -106,6 +127,7 @@ h2.smiley {
     border: none;
     position: relative;
 }
+
 .fireworks {
     position: absolute;
     transform: scale(4);
@@ -127,7 +149,7 @@ h2.smiley {
 
 
 .grid-item {
-    padding: 30px 30px;
+    padding: 10px 0;
 
 }
 
@@ -140,13 +162,12 @@ h2.smiley {
 }
 
 .table-game {
-    background-color: #fff;
     margin: auto;
 }
 
-.table-game-dark {
+/* .table-game-dark {
     background-color: #000;
-}
+} */
 
 tbody {
     border-collapse: collapse;
@@ -217,7 +238,6 @@ h3 {
 .footer {
     margin: 20px 0 0 0;
     padding: 10px 0;
-    position: fixed;
     bottom: 0;
     width: 100%;
     color: #fff;
@@ -234,12 +254,14 @@ h3 {
 
 .bottom-info {
     padding: 10px;
-    margin-bottom: 42px;
 }
 
 .bottom-info h2 {
+    display: inline-block;
     margin: 5px auto;
-    width: 300px;
+    width: 230px;
+    text-align: left;
+    padding-left: 20px;
 }
 
 .hide {
@@ -270,6 +292,9 @@ button {
     box-shadow: 5px 6px 9px 2px rgba(0, 0, 0, 0.79);
 }
 
+ion-icon {
+    font-size: 2rem;
+}
 
 button:hover {
     background-color: rgb(87, 27, 13);
@@ -295,19 +320,52 @@ button:hover {
     color: rgb(141, 19, 19);
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(50, 50, 50);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: absolute;
+    z-index: 1;
+    top: -300%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* margin-left: -60px; */
+
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip .show-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.right-container .tooltiptext {
+    top: -50%;
+}
+
 .dark-switch {
     text-align: center;
     font-size: 13px;
-    color: #000;
-    width: 69px;
-    background-color: rgb(253, 213, 180);
-    margin-bottom: 1px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 5px;
     border-radius: 3px;
-}
-
-.light-switch {
-    background-color: transparent;
-    color: rgb(209, 200, 196);
 }
 
 
@@ -387,7 +445,7 @@ button:hover {
 }
 
 input:checked+.slider {
-    background-color: #9a2e22;
+    background-color: #340b07;
 }
 
 input:focus+.slider {
@@ -506,11 +564,24 @@ input:checked+.slider:before {
 }
 
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:650px) {
     .top-container {
         padding: 0;
         align-items: center;
-        justify-content: flex-end
+    }
+
+    .tooltiptext {
+        z-index: 200;
+    }
+button{
+    box-shadow: none;
+}
+    .bottom-info {
+        scale: 0.9;
+    }
+
+    .game {
+        width: 380px !important;
     }
 
     h1 {
@@ -536,6 +607,7 @@ input:checked+.slider:before {
         display: flex;
         overflow: hidden;
         padding: 10px;
+        justify-content: center;
     }
 
     .grid-item button {

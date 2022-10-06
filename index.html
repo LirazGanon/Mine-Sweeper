@@ -26,85 +26,112 @@
 <body onload="initGame()">
 
     <div class="top-container">
-        <h1>Mine Sweeper</h1>
+        <h1>MineSweeper</h1>
         <img src="img/mines.png" ">
     </div>
 
     <div class=" levels">
         <button class="l1" onclick="setLevel(1)">Beginner</button>
         <button class="l2" onclick="setLevel(2)" style="background-color: #e07a36;">Medium</button>
-        <button class="l3" onclick="setLevel(3)">Expert</button>
+        <a href="#Game"><button class="l3" onclick="setLevel(3)">Expert</button></a>
     </div>
+    <div class="middle-container">
+        <section class="game">
+            <div class="info-container">
+                <div class="info">
+                    <h2 class="timer">Time: <span>000</span></h2>
+                    <h2 class="smiley" onclick="resetGame()"><img src="img/smile.png"></h2>
+                    <h2 class="mines">Mines Left: <span>0</span></h2>
+                </div>
+            </div>
 
-    <div class="info-container">
-        <div class="info">
-            <h2 class="timer">Time: <span>000</span></h2>
-            <h2 class="smiley" onclick="resetGame()"><img src="img/smile.png"></h2>
-            <h2 class="mines">Mines Left: <span>0</span></h2>
-        </div>
-    </div>
+            <div class="grid-container">
 
-    <div class="grid-container">
-
-        <div class="left-container grid-item">
-            <button class="hint" onclick="setHint()">HINT<br>
-                <h3 class="hint-left popup">left: <span>3</span>
-                    <span class="popuptext" id="pop1">Can't use Hint right now</span>
-                </h3>
-            </button>
-            <br>
-            <br>
-            <button class="safe" onclick="setSafe()">Safe Click<br>
-                <h3 class="safe-left popup">left: <span>3</span>
-                    <span class="popuptext" id="pop2">Can't use Safe-Click right now</span>
-                </h3>
-            </button>
-            <br>
-            <br>
-            <button class="mega-hint" onclick="setMegaHint()">MEGA HINT<br>
-                <h3 class="mega-hint-left popup">left: <span>1</span>
-                    <span class="popuptext" id="pop3">Can't use Mega-Hint right now</span>
-                </h3>
-            </button>
-            <br>
-            <br>
-            <button class="terminator" onclick="minesExterminator(3)">Exterminator<br>
-                <h3 class="terminator-left popup">left: <span>1</span>
-                    <span class="popuptext" id="pop5">Can't use Exterminator right now</span>
-                </h3>
-            </button>
-        </div>
-
-
-        <div class="game-container disable-select grid-item">
-            <table class="table-game">
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div class="right-container grid-item">
-            <h3 class="dark-switch">light mode</h3>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider" onclick="setDarkMod()"></span>
-            </label>
-            <br>
-            <br>
-            <button class="set-mines" onclick="onManualMode()">Set Mines</button>
-            <br>
-            <br>
-            <button class="seven-boom" onclick="sevenBoom()">7-Boom</button>
-            <br>
-            <br>
-            <button class="undo popup" onclick="undo()">UNDO
-                <span class="popuptext" id="pop4">Can't use UNDO right now</span></button>
-        </div>
-    </div>
+                <div class="left-container grid-item">
+                    <button class="hint tooltip" onclick="setHint()">
+                        <ion-icon name="bulb-outline"></ion-icon><br>
+                        <h3 class="hint-left popup">left: <span>3</span>
+                            <span class="popuptext" id="pop1">Can't use Hint right now</span>
+                            <span class="tooltiptext">Hint</span>
+                        </h3>
+                    </button>
+                    <br><br>
+                    <button class="safe tooltip" onclick="setSafe()">
+                        <ion-icon name="help-buoy-outline"></ion-icon><br>
+                        <h3 class="safe-left popup">left: <span>3</span>
+                            <span class="popuptext" id="pop2">Can't use Safe-Click right now</span>
+                            <span class="tooltiptext">Safe Click</span>
+                        </h3>
+                    </button>
+                    <br><br>
+                    <button class="mega-hint tooltip" onclick="setMegaHint()">
+                        <ion-icon name="bulb"></ion-icon><br>
+                        <h3 class="mega-hint-left popup">left: <span>1</span>
+                            <span class="popuptext" id="pop3">Can't use Mega-Hint right now</span>
+                            <span class="tooltiptext">Mega Hint</span>
+                        </h3>
+                    </button>
+                    <br><br>
+                    <button class="terminator tooltip" onclick="minesExterminator(3)">
+                        <ion-icon name="skull-outline"></ion-icon><br>
+                        <h3 class="terminator-left popup">left: <span>1</span>
+                            <span class="popuptext" id="pop5">Can't use Exterminator right now</span>
+                            <span class="tooltiptext">Exterminator</span>
+                        </h3>
+                    </button>
+                </div>
 
 
-    <div class="bottom-info">
-        <h2 class="lives">Lives: <span></span></h2>
-        <h2 class="score">Best Score: <span></span> <span class="smaller"> Sec.</span></h2>
+                <div class="game-container disable-select grid-item">
+                    <table class="table-game">
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="right-container grid-item">
+                    <button class="dark-button tooltip" onclick="setDarkMod()">
+                        <h3 class="popup">
+                            <ion-icon name="moon-outline"></ion-icon>
+                            <span class="tooltiptext">Dark Mode</span>
+                        </h3>
+                        <!-- <h3 class="dark-switch"><ion-icon name="sunny-outline"></ion-icon></h3> -->
+                        <!-- <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider" onclick="setDarkMod()"></span>
+                        </label> -->
+                    </button>
+                    <br><br>
+                    <button class="set-mines tooltip" onclick="onManualMode()">
+                        <h3 class="popup">
+                            <ion-icon name="golf-outline"></ion-icon>
+                            <span class="manual-mines tooltiptext">Set Manual Mines</span>
+                        </h3>
+                    </button>
+                    <br><br>
+                    <button class="seven-boom tooltip" onclick="sevenBoom()">
+                        <h3 class="popup">
+                            <ion-icon name="dice-outline"></ion-icon>
+                            <span class="tooltiptext">7-BOOM Mode</span>
+                        </h3>
+
+                    </button>
+                    <br><br>
+                    <button class="undo tooltip" onclick="undo()">
+                        <h3 class="popup">
+                            <ion-icon name="arrow-undo-outline"></ion-icon>
+                            <span class="popuptext" id="pop4">Can't use UNDO right now</span>
+                            <span class="tooltiptext">UNDO</span>
+                        </h3>
+                    </button>
+                </div>
+            </div>
+
+            <a name="Game"></a>
+            <div class="bottom-info">
+                <h2 class="lives">Lives: <span></span></h2>
+                <h2 class="score">Best Score: <span></span> <span class="smaller"> Sec.</span></h2>
+            </div>
+        </section>
     </div>
 
 
@@ -116,6 +143,10 @@
 
     <script src="js/util.js"></script>
     <script src="js/game.js"></script>
+
+    <!-- icons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

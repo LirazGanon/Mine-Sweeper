@@ -44,6 +44,7 @@ function initGame() {
 function setLevel(level) {
     var levelClass
     var width
+    const elGame = document.querySelector('.game')
 
     resetGame()
 
@@ -54,6 +55,7 @@ function setLevel(level) {
             width = 300
             gGame.livesCount = 1
             gLevel.mines = 0.4
+            elGame.style.width = '550px'
             break;
         case 2:
             gLevel.size = 8
@@ -61,6 +63,7 @@ function setLevel(level) {
             width = 460
             gGame.livesCount = 2
             gLevel.mines = 0.25
+            elGame.style.width = '650px'
             break;
         case 3:
             gLevel.size = 12
@@ -68,6 +71,7 @@ function setLevel(level) {
             width = 650
             gGame.livesCount = 3
             gLevel.mines = 0.2
+            elGame.style.width = '840px'
             break;
         default: console.log(`Can't find level ${level}`);
     }
@@ -192,7 +196,7 @@ function cellClicked(elCell, rowIdx, colIdx) {
         return
     }
 
-    if (!gGame.isManualMode && !gGame.isSevenBoom) if (gGame.shownCount === 0) setOnfirstCell(rowIdx, colIdx)
+    if (!gGame.isManualMode && !gGame.isSevenBoom) if (gGame.shownCount === 0) setOnFirstCell(rowIdx, colIdx)
 
     if (!counterInterval) counterInterval = setInterval(setTimer, 1000)
 
@@ -225,11 +229,11 @@ function cellClicked(elCell, rowIdx, colIdx) {
     gGame.steps += 1
 }
 
-function setOnfirstCell(rowIdx, colIdx) {
+function setOnFirstCell(rowIdx, colIdx) {
     const buildRes = buildBoard(gBoard, 'isMine', gLevel.mines)
     gBoard = buildRes[0]
     gGame.minesLeft = buildRes[1]
-    if (gBoard[rowIdx][colIdx].isMine) setOnfirstCell(rowIdx, colIdx)
+    if (gBoard[rowIdx][colIdx].isMine) setOnFirstCell(rowIdx, colIdx)
 
     setMinesNegsCount(gBoard)
 }
@@ -245,14 +249,14 @@ function expandCell(rowIdx, colIdx) {
     gGameSteps[gGame.steps].push({ i: rowIdx, j: colIdx })
 
     if (currCell.isMine) {
-        
+
         if (gGame.livesCount > 0) {
             gGame.livesCount -= 1
             gGame.minesLeft -= 1
             currCell.clickedOnMine = true
             return
         }
-        
+
         gGame.livesCount -= 1
         currCell.clickedOnMine = true
         gameOver()
@@ -442,7 +446,7 @@ function addOnHoverEvent() {
             var targetIdxes = { i: +currIdxes[0], j: +currIdxes[1] }
             shadeCells(gMegaHintsIdxes[0], targetIdxes)
         })
-    }) 
+    })
 
 }
 function shadeCells(startCell, endCell) {
@@ -556,10 +560,10 @@ function mineTerminate() {
 
 function undo() {
 
-    const elundo = document.querySelector('.undo')
+    const elUndo = document.querySelector('.undo')
 
     if (gGameSteps.length === 0 || !gGame.isOn || gGame.isMegaHint || gGame.isHint || gGame.isSafe) {
-        blockButtonUse(elundo, 'pop4')
+        blockButtonUse(elUndo, 'pop4')
         return
 
     }
@@ -599,7 +603,17 @@ function onManualMode() {
     resetGame()
     gGame.isManualSet = true
     document.querySelector('.table-game tbody').classList.add('manual')
-    document.querySelector('.set-mines').innerText = 'Start Game'
+    document.querySelector('.set-mines').style.backgroundColor = '#2fd32c'
+    const elSetManualMinesButton = document.querySelector('.manual-mines')
+    setTimeout(() => {
+        elSetManualMinesButton.innerText = 'Press here when finished'
+        elSetManualMinesButton.classList.add('show-tooltip')
+    }, 1500);
+    setTimeout(() => {
+        elSetManualMinesButton.classList.remove('show-tooltip')
+        elSetManualMinesButton.innerText = 'Set Manual Mines'
+    }, 4500);
+
     renderBoard(gBoard)
 }
 
@@ -624,7 +638,7 @@ function startManualMode(idxesObj) {
     renderBoard(gBoard)
     gGame.isManualSet = false
     document.querySelector('.table-game tbody').classList.remove('manual')
-    document.querySelector('.set-mines').innerText = 'Set Mines'
+    document.querySelector('.set-mines').style.backgroundColor = '#cfcb4e'
     gGame.isManualMode = true
     renderBoard(gBoard)
 }
@@ -655,7 +669,7 @@ function popUp(id) {
 function setDarkMod() {
     document.querySelector('body').classList.toggle('body-dark')
     document.querySelector('.info-container').classList.toggle('info-container-dark')
-    document.querySelector('.game-container').classList.toggle('game-container-dark')
+    document.querySelector('.game').classList.toggle('game-dark')
     document.querySelector('.top-container').classList.toggle('top-container-dark')
     document.querySelector('h1').classList.toggle('h1-dark')
     document.querySelector('.table-game').classList.toggle('table-game-dark')
@@ -663,11 +677,17 @@ function setDarkMod() {
     document.querySelector('.footer').classList.toggle('footer-dark')
     const elH2 = document.querySelectorAll('h2')
     elH2.forEach(el => el.classList.toggle('h2-dark'))
-    const elDarkText = document.querySelector('.dark-switch')
-    elDarkText.classList.toggle('light-switch')
-    if (elDarkText.innerText === 'dark mode') {
-        elDarkText.innerText = 'light mode'
-    } else elDarkText.innerText = 'dark mode'
+    const elDarkText = document.querySelector('.dark-button')
+    // elDarkText.classList.toggle('dark-button')
+    if (document.querySelector('body').classList.contains('body-dark')) {
+        elDarkText.innerHTML = ` <h3 class="popup">
+        <ion-icon name="sunny-outline"></ion-icon>
+        <span class="tooltiptext">Light Mode</span>
+    </h3>`
+    } else elDarkText.innerHTML = ` <h3 class="popup">
+    <ion-icon name="moon-outline"></ion-icon>
+    <span class="tooltiptext">Dark Mode</span>
+</h3>`
 }
 
 function gameOver() {
@@ -676,7 +696,7 @@ function gameOver() {
 
     if (gGame.isWin) {
         elSmiley.innerHTML = `<img src="img/win.gif"><img class="fireworks" src="img/fireworks.png">` //😎
-        setTimeout(()=>document.querySelector('.fireworks').classList.add('hide'),3000)
+        setTimeout(() => document.querySelector('.fireworks').classList.add('hide'), 3000)
         var record = +localStorage.getItem('user_record');
         if (gGame.secsPassed < record) {
             document.querySelector('.score span').innerText = gGame.secsPassed
@@ -721,7 +741,7 @@ function resetGame() {
     const elTerminator = document.querySelector('.terminator-left span')
     elTerminator.innerText = gGame.terminateCount
 
-    document.querySelector('.set-mines').innerText = 'Set Mines'
+    document.querySelector('.set-mines').style.backgroundColor = null
 
     counterInterval = null
     setTimer()
